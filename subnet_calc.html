@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gray's Subnet Calculator Helper</title>
+<link rel="icon" href="the sun.jpg">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<style>
+
+.code {
+font-family: Courier New;
+background-color: black;
+}
+
+#pythoncode {
+font-size: 14px;
+}
+
+i {
+color: #585;
+}
+
+</style>
+
+<script src="base.js"></script>
+
+<div id="topBar" class="rectangle"></div>
+<div id="plateOutline" class="trapezoid"></div>
+<div class="trapezoid"><h1 align="center">Jacob Gray</h1></div>
+<a href="#anchorToTop"><div id="linkToTop"><p>Back to top</p></div></a>			<!-- make the nav pop out from button-->
+<div id="anchorToTop"></div>
+
+<p id="navButton" onclick="navPopup()">Navigation</p>
+
+</head>
+
+<div id="topBar" class="rectangle"></div>
+<div id="plateOutline" class="trapezoid"></div>
+<div class="trapezoid"><h1 align="center">Jacob Gray</h1></div>
+
+<body>
+
+<div class="pageMargin">
+
+</div>
+ 
+ <ul id="navBar">
+	<a href="index.html"><li><b>Home</b><br /></li></a>
+	<a href="essays.html"><li><b>Essays</b><br /></li></a>
+	<a href="programming.html"><li><b>Programming</b><br /></li></a>
+	<a href="other_projects.html"><li><b>Other Projects</b><br /></li></a>
+	<a href="accomplishments.html"><li><b>Accomplishments</b><br /></li></a>
+	<a href="professional_info.html"><li><b>Professional Info</b><br /></li></a>
+	<a href="other_stuff.html"><li><b>Other Stuff</b><br /></li></a>
+	<a href="about_me.html"><li><b>About Me</b><br /></li></a>
+ </ul>
+
+<div id="leftMargin" class="rectangle"></div>
+<div id="rightMargin" class="rectangle"></div>
+<div class="pageMargin"> 
+
+<h2>Subnet Calculator Helper</h2>
+<p>This simple Python Program is capable of splitting up IP subnets using VLSM,
+given a starting subnet. Although very flawed and badly coded (with little to no
+comments,) I still remain proud of it, as it was one of my first "real" programming 
+projects. The math aspect of the project made it extremely enjoyable, and it was
+fun working with both my programming and IT knowledge in conjunction to produce
+a practical, useful result. While it may not be the best project, it was intended to 
+just be something to learn from; and I can say without a doubt that what I learned
+was invaluable.</p>
+
+<div class="code">
+<p id="pythoncode"><i>#Given starting IP and subnet mask, as well as ranges for addresses and names, I should be able to organize them and subnet them. started on tues i think (8/29/18)</i> <br /><br />
+
+print("When asked for information, write in the order given and separate each one with a space.") <br />
+print("") <br />
+startingInfo = input("Input the starting IP address and the starting subnet mask for your network. ")  <i># Asking for IP and subnet as string</i> <br />
+startingInfo = startingInfo.split()     <i># Splitting them into IP and subnet variables</i> <br />
+startingIP = (startingInfo[0].split("."))    <i># Splitting IP into octets</i> <br />
+startingMask = (startingInfo[1].split("."))    <i># Splitting subnet into octets</i> <br />
+subnet = 1  <i># Used for tracking total subnets and active subnets during loop</i> <br />
+networkInfo = [] <br />
+networkName =  []    <i>#establishing lists with empty values</i> <br />
+networkHosts = [] <br />
+networkNumber = []  <i># largest to smallest subnets</i> <br />
+subNetworkName = [] <br />
+subNetworkHosts = [] <br />
+subNetworkRange = [] <br /><br />
+
+print(".".join(startingIP) + " is the starting IP. The subnet mask is " + ".".join(startingMask) + ".") <br />
+print("In the event of multiple networks with the same amount of hosts, the first network entered will take precedence.") <br />
+while 1 > 0: <br />
+    #networkInfo.append(input("Input the name (with no spaces) and the amount of hosts in the network. ")) <br />
+    #networkName.append(networkInfo[subnet - 1].split()[0]) <br />
+    #networkHosts.append(int(networkInfo[subnet - 1].split()[1])) <br />
+    networkName.append(0) <br />
+    networkHosts.append(0) <br />
+    networkName[subnet - 1], networkHosts[subnet - 1] = input("Input the name (with no spaces) and the amount of hosts in the network. ").split()   <i># splits the name/hosts into their own lists</i> <br />
+    if input("Do you have another range; [y] or [n] ") == "n": <br />
+        break   # ends loop if no networks left <br />
+        print("Calculating subnets...") <br />
+    else: <br />
+        subnet = subnet + 1 <br /><br />
+
+x = 0 <br />
+while x &lt; subnet: <br />
+    networkNumber.append(0)     <i># creates an empty list for organizing largest to smallest networks</i> <br />
+    x += 1 <br />
+    #networkHostsFodder.append(int(networkHosts[x])) <br />
+z = 0       # turn hosts into ints <br />
+
+while z &lt; subnet: <br />
+    x = 0   # checks and organizes each network from largest to smallest <br />
+    while x &lt; subnet: <br />
+        if int(networkHosts[x]) &gt; int(networkHosts[networkNumber[z]]):  <i># have to make it reloop and pick 2nd, 3rd, 4th, etc.</i> <br />
+            networkNumber[z] = x    <i># stores the network's numbers (which network it was entered as Ex. second network entered) based on their size</i> <br />
+        x += 1 <br />
+    networkHosts[networkNumber[z]] = -1*int(networkHosts[networkNumber[z]]) <i># take the highest of that loop and denote it as negative</i> <br />
+    z += 1 <br /><br />
+
+print(networkHosts) <br />
+print(networkNumber)                 <i># troubleshooting!!!!</i> <br />
+
+<i># now time to take the biggest network, assign it a subnet mask/range, and work down</i> <br />
+z = 0 <br />
+x = 0 <br /><br />
+
+while z < len(networkNumber): <br />
+    subNetworkName.append(0) <br />
+    subNetworkName[z] = networkName[networkNumber[z]]  <i># assigns the zth network's name</i> <br />
+    if z > 0: <br />
+        subNetworkRange.append(0) <br />
+        subNetworkRange[z] = subNetworkRange[z - 1] + 2**x   <i># finds the end of the previous network if not the first</i> <br />
+    else: <br />
+        subNetworkRange.append(0) <br />
+        subNetworkRange[0] = (int(startingIP[0]) * 16777216) + (int(startingIP[1]) * 65536) + (int(startingIP[2]) * 256) + int(startingIP[3]) <i># starts at the starting IP if first network</i> <br />
+    x = 0 <br />
+    while 2**x - 2 <= -1 * int(networkHosts[networkNumber[z]]): <br />
+        x += 1                                      <i># calculates the overall hosts offered by the network</i> <br />
+    #subNetworkHosts = 2**x <br />
+    print() <br />
+    print("Network " + subNetworkName[z] + ":") <br />
+    y = [0, 0, 0, 0] <br />
+    y[0] = subNetworkRange[z] % 256 <br />
+    y[1] = subNetworkRange[z] % 65536 - y[0] <br />
+    y[2] = subNetworkRange[z] % 16777216 - y[0] - y[1]      <i># finds each individual octet</i> <br />
+    y[3] = subNetworkRange[z] - y[0] - y[1] - y[2] <br />
+    print("Name: " + str(int(y[3] // 16777216)) + "." + str(int(y[2] // 65536)) + "." + str(int(y[1] // 256)) + "." + str(y[0]))    <i># prints seperated address</i> <br />
+    i = 0 <br />
+    while i &lt; 4: <br />
+        if x &lt; 8 * (3 - i):     <i># if there are less host bits than the bits up to that octet then the address must match</i> <br />
+            y[i] = 255 <br />
+        elif x > 8 * (4 - i):         <i># if there are more host bits than bits up to the octet, it must be zero     (keep in mind that y for IPs is tracked from left to right, while the mask is calculated from right to left)</i> <br />
+            y[i] = 0 <br />
+        else: <br />
+             y[i] = 256-2**(x - 8 * (3-i))  <i># if there is no bit overkill, the mask must be calculated</i> <br />
+        i += 1 <br /><br />
+
+    print("Subnet Mask/CITR Number: " + str(y[0])  + "." + str(y[1]) + "." + str(y[2]) + "." + str(y[3]) + " or /" + str(32-x)) <br />
+    y[0] = subNetworkRange[z] % 256 <br />
+    y[1] = subNetworkRange[z] % 65536 - y[0] <br />
+    y[2] = subNetworkRange[z] % 16777216 - y[0] - y[1]      <i># finds each individual octet again</i> <br />
+    y[3] = subNetworkRange[z] - y[0] - y[1] - y[2] <br />
+    print("First Usable IP: " +  str(int(y[3] // 16777216)) + "." + str(int(y[2] // 65536)) + "." + str(int(y[1] // 256)) + "." + str(y[0] + 1))    <i># y's must be reset</i> <br />
+    y[0] = (subNetworkRange[z] + 2**x - 1) % 256                     <i># recalculates the octets after hosts factored in</i> <br />
+    y[1] = (subNetworkRange[z] + 2**x)% 65536 - y[0] <br />
+    y[2] = (subNetworkRange[z] + 2**x)% 16777216 - y[0] - y[1] <br />
+    y[3] = (subNetworkRange[z] + 2**x) - y[0] - y[1] - y[2] <br />
+    print("Last Usable IP: " + str(int(y[3] // 16777216)) + "." + str(int(y[2] // 65536)) + "." + str(int(y[1] // 256)) + "." + str((y[0] - 1)))    <i># prints final addresses</i> <br />
+    print("Broadcast IP: " + str(int(y[3] // 16777216)) + "." + str(int(y[2] // 65536)) + "." + str(int(y[1] // 256)) + "." + str((y[0]))) <br />
+    z += 1          # adds 1 to loop counter <br />
+        # subNetwork____: mask, range, hosts, name <br />
+
+print() <br />
+print("Thank you for using this Subnet Calculator, made by Jacob Gray!") <br />
+input("Press enter when you are done.") <br /><br /></p> 
+
+</div>
+
+<p>Again, this code is very bad, so please use this as an example of what <b>not</b> to do! While it does work, it's very unstable and would likely give professional coders around the 
+world severe anxiety and/or make them question the inner workings of such a madman's mind.
+
+</div>
+
+</body>
+</html>
