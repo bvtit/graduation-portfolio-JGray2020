@@ -13,9 +13,26 @@
 }
 
 .displayItem {
+	display: inline-block;
+}
+
+#iframeWrapper {
+	width: 100%;
+	text-align: center;
+}
+
+#resume {
+	width: 47%;
 	
 }
 
+#coverLetter {
+	width: 47%;
+}
+
+#tempSpace {
+	width: 4%;
+}
 
 </style>
 
@@ -62,8 +79,11 @@ for employers to view. This includes things like my resume, employment informati
 
 <div id="aCert" align="center" class="displayItem" onclick="aPlusPopup()"><h3>A+ Certification</h3><img width="100%" src="a_cert.jpg"></div>
 
-<div align="center" id="resume" class="displayItem"><h3>Resume</h3><embed src="resume.pdf" width="90%" height="600px"></div>
-<div align="center" id="coverLetter" class="displayItem"><h3>Cover Letter</h3><embed src="coverletter.pdf" width="90%" height="600px"></div>
+<div id="iframeWrapper">
+<div id="resume" class="displayItem"><h3>Resume</h3><embed src="resume.pdf" width="100%" height="600px"></div>
+<div id="tempSpace" class="displayItem"></div>
+<div id="coverLetter" class="displayItem"><h3>Cover Letter</h3><embed src="coverletter.pdf" width="100%" height="600px"></div>
+</div>
 
 </div>
 
