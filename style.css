@@ -82,6 +82,10 @@ li {
 	cursor: default;
 	user-select: none;
 }
+
+.inPageLink {
+	color: #B8B;
+}
 	
 #plateOutline {
 	border-top: 61px solid #555;
