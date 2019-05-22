@@ -86,6 +86,11 @@ li {
 .inPageLink {
 	color: #B8B;
 }
+
+.caption {
+	color: #DDD;
+	font-size: 16px;
+}
 	
 #plateOutline {
 	border-top: 61px solid #555;
