@@ -6,9 +6,7 @@ Current problems;
 -modal does not work
 -iframe resume and cover letter get really cramped when width != 100%
 -pictures needed for more projects
--nav bar always starts opened
 -navigation and back to top text do not fit the theme
--code format for programming projects is verbose and hard to follow
--most of the space in each page is consumed by standard stuff like the nav bar
+-most of the space in each page (in the text files, not on the visual page) is consumed by standard stuff like the nav bar
 -no js support
 -only one css page
